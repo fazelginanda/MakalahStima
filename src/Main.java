@@ -8,27 +8,14 @@ public class Main {
                 "kaya harmoni, integrasi vokal dan instrumen, banyak pergerakan, " +
                 "pergerakan cepat, perubahan tempo dramatis, perubahan volume dramatis, menggunakan basso continuo",
                 "jelas, terang, sederhana, struktur simetris, tekstur homofonik, perubahan tempo bertahap, " +
-                        "artikulasi presisi, menggunakan sonata, integrasi vokal dan instrumen, kontras gelap terang, "
-                        +
-                        "kontras tonic dominant, semua cadence terdengar sama",
+                        "artikulasi presisi, menggunakan sonata, integrasi vokal dan instrumen, " +
+                        "kontras gelap terang, kontras tonic dominant, semua cadence terdengar sama",
                 "menekankan ekspresi, ekspansi bentuk musik, banyak harmoni kromatik, " +
                         "kebebasan struktur, komposisi fleksibel, kedalaman emosional, naratif, " +
                         "instrument beragam, progresi harmoni tidak biasa, rubato, tempo fleksibel, " +
                         "rhythm fleksibel, peran konduktor luas, peran dinamik bertambah, leitmotif, " +
                         "menggunakan transformasi tematik, ekspresif, imajinatif" };
-        final String[] karakteristikBarok = { "megah", "kompleks", "rumit", "memiliki ornamen",
-                "dinamik yang kontras", "polifoni", "memiliki trill", "memiliki mordent", "kaya harmoni",
-                "integrasi vokal dan instrumen", "banyak pergerakan", "pergerakan cepat",
-                "perubahan tempo dramatis", "perubahan volume dramatis", "menggunakan basso continuo" };
-        final String[] karakteristikKlasik = { "jelas", "terang", "sederhana", "struktur simetris",
-                "tekstur homofonik", "perubahan tempo bertahap", "artikulasi presisi", "menggunakan sonata",
-                "integrasi vokal dan instrumen", "kontras gelap terang", "kontras tonic dominant",
-                "semua cadence terdengar sama" };
-        final String[] karakteristikRomantik = { "menekankan ekspresi", "ekspansi bentuk musik",
-                "banyak harmoni kromatik", "kebebasan struktur", "komposisi fleksibel", "kedalaman emosional",
-                "naratif", "instrumen beragam", "progresi harmoni tidak biasa", "rubato", "tempo fleksibel",
-                "rhythm fleksibel", "peran konduktor luas", "peran dinamik bertambah", "leitmotif",
-                "menggunakan transformasi tematik", "ekspresif", "imajinatif" };
+
         System.out.println("Program Identifikasi Zaman Karya Musik");
         System.out.println("Masukkan karakteristik musik (setiap karakteristik dipisahkan dengan " + "', ')");
         System.out.println("Contoh masukan: megah, kompleks, rumit");
@@ -45,7 +32,7 @@ public class Main {
         long endTime = 0;
 
         /* ----ALGORITMA------ */
-        // Brute Force
+        // Algoritma Brute Force
         startTime = System.nanoTime();
         Arrays.fill(countMatch, 0);
         for (int i = 0; i < karakteristikInputLC.length; i++) {
@@ -108,5 +95,4 @@ public class Main {
         endTime = System.nanoTime();
         System.out.println("Execution time: " + (endTime - startTime) + " nanoseconds");
     }
-
 }
