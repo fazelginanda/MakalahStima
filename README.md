@@ -15,5 +15,6 @@ Musik klasik adalah musik yang berkembang di Benua Eropa dari awal abad ke-17 sa
 ## Cara Menjalankan Program
 1. Jalankan shell atau terminal pada komputer
 2. Clone repository ini menggunakan menggunakan command `git clone https://github.com/fazelginanda/MakalahStima.git`.
-3. Kompilasi source code program ini menggunakan command `javac PatternMatcher.java Main.java`.
-4. Jalankan program menggunakan command `java Main`.
+3. Ubah current working directory ke folder src menggunakan command `cd MakalahStima/src`.
+4. Kompilasi source code program ini menggunakan command `javac PatternMatcher.java Main.java`.
+5. Jalankan program menggunakan command `java Main`.
