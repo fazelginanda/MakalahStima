@@ -21,17 +21,19 @@ public class PatternMatcher {
         int i = 0;
         int j = 0;
 
-        while (i < n) {
-            if (pattern.charAt(j) == text.charAt(i)) {
-                if (j == m - 1) {
-                    return i - m + 1; // match
+        if (m <= n) {
+            while (i < n) {
+                if (pattern.charAt(j) == text.charAt(i)) {
+                    if (j == m - 1) {
+                        return i - m + 1; // match
+                    }
+                    i++;
+                    j++;
+                } else if (j > 0) {
+                    j = b[j - 1];
+                } else {
+                    i++;
                 }
-                i++;
-                j++;
-            } else if (j > 0) {
-                j = b[j - 1];
-            } else {
-                i++;
             }
         }
         return -1; // no match
@@ -39,7 +41,7 @@ public class PatternMatcher {
 
     public static int[] computeBorder(String pattern) {
         int b[] = new int[pattern.length()];
-        int fail[] = { 0 };
+        b[0] = 0;
         int m = pattern.length();
         int j = 0;
         int i = 1;
@@ -57,7 +59,7 @@ public class PatternMatcher {
                 i++;
             }
         }
-        return fail;
+        return b;
     }
 
     public static int boyerMoore(String text, String pattern) {

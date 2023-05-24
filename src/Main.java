@@ -3,12 +3,35 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         final String[] zaman = { "Barok", "Klasik", "Romantik" };
-        final String[] karakteristikBarok = { "homofon", "tempo tetap" };
-        final String[] karakteristikKlasik = { "seimbang", "melodi elegan" };
-        final String[] karakteristikRomantik = { "ekspresif", "emosional" };
+        final String[] karakteristikZaman = { "megah, kompleks, rumit, memiliki ornamen, " +
+                "dinamik yang kontras, polifoni, memiliki trill, memiliki mordent, " +
+                "kaya harmoni, integrasi vokal dan instrumen, banyak pergerakan, " +
+                "pergerakan cepat, perubahan tempo dramatis, perubahan volume dramatis, menggunakan basso continuo",
+                "jelas, terang, sederhana, struktur simetris, tekstur homofonik, perubahan tempo bertahap, " +
+                        "artikulasi presisi, menggunakan sonata, integrasi vokal dan instrumen, kontras gelap terang, "
+                        +
+                        "kontras tonic dominant, semua cadence terdengar sama",
+                "menekankan ekspresi, ekspansi bentuk musik, banyak harmoni kromatik, " +
+                        "kebebasan struktur, komposisi fleksibel, kedalaman emosional, naratif, " +
+                        "instrument beragam, progresi harmoni tidak biasa, rubato, tempo fleksibel, " +
+                        "rhythm fleksibel, peran konduktor luas, peran dinamik bertambah, leitmotif, " +
+                        "menggunakan transformasi tematik, ekspresif, imajinatif" };
+        final String[] karakteristikBarok = { "megah", "kompleks", "rumit", "memiliki ornamen",
+                "dinamik yang kontras", "polifoni", "memiliki trill", "memiliki mordent", "kaya harmoni",
+                "integrasi vokal dan instrumen", "banyak pergerakan", "pergerakan cepat",
+                "perubahan tempo dramatis", "perubahan volume dramatis", "menggunakan basso continuo" };
+        final String[] karakteristikKlasik = { "jelas", "terang", "sederhana", "struktur simetris",
+                "tekstur homofonik", "perubahan tempo bertahap", "artikulasi presisi", "menggunakan sonata",
+                "integrasi vokal dan instrumen", "kontras gelap terang", "kontras tonic dominant",
+                "semua cadence terdengar sama" };
+        final String[] karakteristikRomantik = { "menekankan ekspresi", "ekspansi bentuk musik",
+                "banyak harmoni kromatik", "kebebasan struktur", "komposisi fleksibel", "kedalaman emosional",
+                "naratif", "instrumen beragam", "progresi harmoni tidak biasa", "rubato", "tempo fleksibel",
+                "rhythm fleksibel", "peran konduktor luas", "peran dinamik bertambah", "leitmotif",
+                "menggunakan transformasi tematik", "ekspresif", "imajinatif" };
         System.out.println("Program Identifikasi Zaman Karya Musik");
         System.out.println("Masukkan karakteristik musik (setiap karakteristik dipisahkan dengan " + "', ')");
-        System.out.println("Contoh masukan: homofon, tempo tetap");
+        System.out.println("Contoh masukan: megah, kompleks, rumit");
         System.out.print("> ");
         String input = System.console().readLine();
         String[] karakteristikInput = input.split("(,\s)", 0);
@@ -16,98 +39,69 @@ public class Main {
         for (int i = 0; i < karakteristikInput.length; i++) {
             karakteristikInputLC[i] = karakteristikInput[i].toLowerCase();
         }
-        int[] countOccurence = new int[3];
-        int maxOccurence = 0;
+        int[] countMatch = new int[3];
+        int maxMatch = 0;
         long startTime = 0;
         long endTime = 0;
 
-        // Brute Force Algorithm
+        /* ----ALGORITMA------ */
+        // Brute Force
         startTime = System.nanoTime();
-        Arrays.fill(countOccurence, 0);
+        Arrays.fill(countMatch, 0);
         for (int i = 0; i < karakteristikInputLC.length; i++) {
-            for (int j = 0; j < karakteristikBarok.length; j++) {
-                if (PatternMatcher.bruteForce(karakteristikInputLC[i], karakteristikBarok[j]) != -1) {
-                    countOccurence[0]++;
-                }
-            }
-            for (int j = 0; j < karakteristikKlasik.length; j++) {
-                if (PatternMatcher.bruteForce(karakteristikInputLC[i], karakteristikKlasik[j]) != -1) {
-                    countOccurence[1]++;
-                }
-            }
-            for (int j = 0; j < karakteristikRomantik.length; j++) {
-                if (PatternMatcher.bruteForce(karakteristikInputLC[i], karakteristikRomantik[j]) != -1) {
-                    countOccurence[2]++;
+            for (int j = 0; j < 3; j++) {
+                if (PatternMatcher.bruteForce(karakteristikZaman[j], karakteristikInputLC[i]) != -1) {
+                    countMatch[j]++;
                 }
             }
         }
-        maxOccurence = Arrays.stream(countOccurence).max().getAsInt();
+        maxMatch = Arrays.stream(countMatch).max().getAsInt();
         System.out.println();
         System.out.println("Algoritma Brute Force");
         for (int i = 0; i < 3; i++) {
-            if (countOccurence[i] == maxOccurence) {
+            if (countMatch[i] == maxMatch) {
                 System.out.println(zaman[i]);
             }
         }
         endTime = System.nanoTime();
         System.out.println("Execution time: " + (endTime - startTime) + " nanoseconds");
 
-        // KMP Algorithm
+        // Algoritma KMP
         startTime = System.nanoTime();
-        Arrays.fill(countOccurence, 0);
+        Arrays.fill(countMatch, 0);
         for (int i = 0; i < karakteristikInputLC.length; i++) {
-            for (int j = 0; j < karakteristikBarok.length; j++) {
-                if (PatternMatcher.KMP(karakteristikInputLC[i], karakteristikBarok[j]) != -1) {
-                    countOccurence[0]++;
-                }
-            }
-            for (int j = 0; j < karakteristikKlasik.length; j++) {
-                if (PatternMatcher.KMP(karakteristikInputLC[i], karakteristikKlasik[j]) != -1) {
-                    countOccurence[1]++;
-                }
-            }
-            for (int j = 0; j < karakteristikRomantik.length; j++) {
-                if (PatternMatcher.KMP(karakteristikInputLC[i], karakteristikRomantik[j]) != -1) {
-                    countOccurence[2]++;
+            for (int j = 0; j < 3; j++) {
+                if (PatternMatcher.KMP(karakteristikZaman[j], karakteristikInputLC[i]) != -1) {
+                    countMatch[j]++;
                 }
             }
         }
-        maxOccurence = Arrays.stream(countOccurence).max().getAsInt();
+        maxMatch = Arrays.stream(countMatch).max().getAsInt();
         System.out.println();
         System.out.println("Algoritma KMP");
         for (int i = 0; i < 3; i++) {
-            if (countOccurence[i] == maxOccurence) {
+            if (countMatch[i] == maxMatch) {
                 System.out.println(zaman[i]);
             }
         }
         endTime = System.nanoTime();
         System.out.println("Execution time: " + (endTime - startTime) + " nanoseconds");
 
-        // Boyer-Moore Algorithm
+        // Algoritma Boyer-Moore
         startTime = System.nanoTime();
-        Arrays.fill(countOccurence, 0);
+        Arrays.fill(countMatch, 0);
         for (int i = 0; i < karakteristikInputLC.length; i++) {
-            for (int j = 0; j < karakteristikBarok.length; j++) {
-                if (PatternMatcher.boyerMoore(karakteristikInputLC[i], karakteristikBarok[j]) != -1) {
-                    countOccurence[0]++;
-                }
-            }
-            for (int j = 0; j < karakteristikKlasik.length; j++) {
-                if (PatternMatcher.boyerMoore(karakteristikInputLC[i], karakteristikKlasik[j]) != -1) {
-                    countOccurence[1]++;
-                }
-            }
-            for (int j = 0; j < karakteristikRomantik.length; j++) {
-                if (PatternMatcher.boyerMoore(karakteristikInputLC[i], karakteristikRomantik[j]) != -1) {
-                    countOccurence[2]++;
+            for (int j = 0; j < 3; j++) {
+                if (PatternMatcher.boyerMoore(karakteristikZaman[j], karakteristikInputLC[i]) != -1) {
+                    countMatch[j]++;
                 }
             }
         }
-        maxOccurence = Arrays.stream(countOccurence).max().getAsInt();
+        maxMatch = Arrays.stream(countMatch).max().getAsInt();
         System.out.println();
         System.out.println("Algoritma Boyer-Moore");
         for (int i = 0; i < 3; i++) {
-            if (countOccurence[i] == maxOccurence) {
+            if (countMatch[i] == maxMatch) {
                 System.out.println(zaman[i]);
             }
         }
